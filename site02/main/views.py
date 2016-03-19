@@ -190,8 +190,7 @@ def leader(request):
 
     # 若沒有get資料，則從以下url讀取資料，生成最活嚯用戶頁面
     else:
-        res = requests.get(
-            'http://car-rzsh2q54.cloudapp.net:8000/leader/data.json')
+        res = requests.get(request.scheme + '://' +request.META['HTTP_HOST'] + '/leader/data.json')
         obj = io.StringIO(res.text)
         data = json.load(obj)
 
