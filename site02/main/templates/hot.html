@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load extras %}
+{% load staticfiles %}
+
+{% block title %}熱門話題{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static "plugins/datatables/dataTables.bootstrap.css" %}">
+  <link rel="stylesheet" href="{% static "plugins/daterangepicker/daterangepicker-bs3.css" %}">
+{% endblock %}
+
+{% block page-header %}熱門話題{% endblock %}
+{% block optional-header %}最受關注的話題{% endblock %}
+{% block level-header %}熱門話題{% endblock %}
+
+{% block active-hot %} class="active"{% endblock %}
+
+{% block page-content %}
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">熱門話題</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="row margin">
+<!--                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                      <input type="text" class="form-control pull-right" id="id_datetime_picker"
+                             value="1/12/2015 00:00 AM - 31/12/2015 23:59 PM">
+                             {{ dt.data }}
+                  </div> -->
+                </div>
+                <div class="row margin">
+                <table id="hot_topics" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>日期</th>
+                      <th>標題</th>
+                      <th>發起人</th>
+                      <th>熱度</th>
+                      <th>情緒</th>
+                      <th>來源</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for t in threads %}
+                    <tr>
+                      <td>{{ t.date_time }}</td>
+
+                      <td>{{ t.topic }}</td>
+
+                      <td>{{ t.author }}</td>
+
+                      <td>{{ t.hit }}</td>
+
+                      {% if t.emotion == 'positive' %}
+                      <td>正面</td>
+                      {% elif t.emotion == 'negative' %}
+                      <td>負面</td>
+                      {% elif t.emotion == 'neutral' %}
+                      <td>中立</td>
+                      {% endif %}
+
+                      <td><a href="{{ t.url }}" target="_blank">{{ t.url }}</a></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>日期</th>
+                      <th>標題</th>
+                      <th>發起人</th>
+                      <th>熱度</th>
+                      <th>情緒</th>
+                      <th>來源</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block page-script %}
+<script src="{% static "plugins/datatables/jquery.dataTables.min.js" %}"></script>
+<script src="{% static "plugins/datatables/dataTables.bootstrap.min.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="{% static "plugins/daterangepicker/daterangepicker.js" %}"></script>
+<script>
+  $(function() {
+    $('#hot_topics').DataTable({
+      "order": [
+        [3, "desc"]
+      ],
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+
+    $('#id_datetime_picker').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      format: 'DD/MM/YYYY h:mm A'
+    });
+  });
+
+</script>
+{% endblock %}

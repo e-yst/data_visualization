@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load extras %}
+{% load staticfiles %}
+
+{% block title %}名詞關聯分析{% endblock %}
+
+{% block head %}
+  <style>
+
+  .node circle {
+    cursor: pointer;
+    stroke: #3182bd;
+    stroke-width: 1.5px;
+  }
+
+  .node text {
+    font: 10px sans-serif;
+    pointer-events: none;
+    text-anchor: middle;
+  }
+
+  line.link {
+    fill: none;
+    stroke: #9ecae1;
+    stroke-width: 1.5px;
+  }
+
+  </style>
+{% endblock %}
+
+{% block page-header %}名詞關聯分析{% endblock %}
+{% block optional-header %}{% endblock %}
+{% block level-header %}名詞關聯分析{% endblock %}
+
+{% block active-words %} class="active"{% endblock %}
+
+{% block page-content %}
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">名詞關聯分析</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="row margin">
+                  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+                </div>
+              <!-- /.box-body -->
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block page-script %}
+<script src="{% static "dist/js/pages/related_words.js" %}"></script>
+{% endblock %}
