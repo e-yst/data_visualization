@@ -133,7 +133,7 @@ def related_words_data(request):
 
     # 載入從全部10萬資料預先製作的Word2Vec Model
     model = Word2Vec.load_word2vec_format(
-        "/home/eason/django/site02/main/car_posts_nouns.w2v", binary=False)
+        os.path.split(os.path.abspath(__file__))[0] + "/car_posts_nouns.w2v", binary=False)
 
     # 生成dictionary作為Json的原始資料
     dataset = {
